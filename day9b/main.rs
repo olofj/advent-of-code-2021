@@ -1,5 +1,3 @@
-use std::collections::VecDeque;
-
 const NAV: [(isize, isize); 4] = [(-1, 0), (0, -1), (1, 0), (0, 1)];
 
 type Color = u32;
@@ -12,14 +10,14 @@ fn fill(map: &Vec<Vec<isize>>,
         fill: &mut [[Color; YSIZE]; XSIZE],
         (startx, starty): (usize, usize),
         color: Color) {
-    let mut q:VecDeque<(usize,usize)> = VecDeque::new();
+    let mut q:Vec<(usize,usize)> = Vec::new();
     if fill[startx][starty] == NO_COLOR &&
         map[startx][starty] != 9 {
         fill[startx][starty] = color;
-        q.push_back((startx, starty));
+        q.push((startx, starty));
     }
 
-    while let Some((x,y)) = q.pop_front() {
+    while let Some((x,y)) = q.pop() {
         for (dx, dy) in NAV {
             let xx = x as isize + dx;
             let yy = y as isize + dy;
@@ -34,7 +32,7 @@ fn fill(map: &Vec<Vec<isize>>,
             let yy = yy as usize;
             if map[xx][yy] != 9 && fill[xx][yy] == NO_COLOR {
                 fill[xx][yy] = color;
-                q.push_back((xx,yy));
+                q.push((xx,yy));
             }
         }
     }
