@@ -38,7 +38,7 @@ fn main() {
         }
 
         let mut sum: usize = 0;
-        for s in stack.iter().rev() {
+        while let Some (s) = stack.pop() {
             sum *= 5;
             sum += s+1;
         }
