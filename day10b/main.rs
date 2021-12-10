@@ -1,6 +1,3 @@
-const OPENS: [char ; 4] = ['(', '[', '{', '<'];
-const CLOSES: [char ; 4] = [')', ']', '}', '>'];
-
 fn open_token(c: char) -> Option<usize> {
     match c {
         '(' => Some(0),
@@ -31,11 +28,10 @@ fn main() {
     'line: for l in input {
         let mut stack: Vec<usize> = Vec::new();
         for c in l.chars() {
-            if OPENS.contains(&c) {
-                stack.push(open_token(c).unwrap());
-            } else if CLOSES.contains(&c) {
-                let tok = close_token(c).unwrap();
-                if stack.pop().unwrap() != tok {
+            if let Some(t) = open_token(c) {
+                stack.push(t);
+            } else if let Some(t) = close_token(c) {
+                if stack.pop().unwrap() != t {
                     continue 'line;
                 } 
             }
