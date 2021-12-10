@@ -1,5 +1,3 @@
-const OPENS: [char ; 4] = ['(', '[', '{', '<'];
-const CLOSES: [char ; 4] = [')', ']', '}', '>'];
 const SCORE: [usize; 4] = [3, 57, 1197, 25137];
 
 fn open_token(c: char) -> Option<usize> {
@@ -32,12 +30,11 @@ fn main() {
     'line: for l in input {
         let mut stack: Vec<usize> = Vec::new();
         for c in l.chars() {
-            if OPENS.contains(&c) {
-                stack.push(open_token(c).unwrap());
-            } else if CLOSES.contains(&c) {
-                let tok = close_token(c).unwrap();
-                if stack.pop().unwrap() != tok {
-                    scores.push(SCORE[tok]);
+            if let Some(t) = open_token(c) {
+                stack.push(t);
+            } else if let Some(t) = close_token(c) {
+                if stack.pop().unwrap() != t {
+                    scores.push(SCORE[t]);
                     continue 'line;
                 } 
             }
