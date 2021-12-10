@@ -36,16 +36,11 @@ fn fill(map: &Vec<Vec<Color>>, (startx, starty): (usize, usize)) -> Vec<(usize, 
 }
 
 fn main() {
-    let input: Vec<Vec<isize>> = include_str!("input.txt")
+    let mut map: Vec<Vec<isize>> = include_str!("input.txt")
         .lines()
-        .map(|l| l.chars().map(|c| (c as isize) - ('0' as isize)).collect())
-        .collect();
-
-    let mut map: Vec<Vec<Color>> = input
-        .iter()
         .map(|l| l
-             .iter()
-             .map(|c| match c { 9 => PEAK, _ => NO_COLOR })
+             .chars()
+             .map(|c| match c { '9' => PEAK, _ => NO_COLOR })
              .collect())
         .collect();
 
