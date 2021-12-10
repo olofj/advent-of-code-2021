@@ -4,7 +4,7 @@ fn main() {
         .map(|l| l.parse::<usize>().unwrap())
         .collect();
 
-    let sum: usize = input.windows(2).map(|p| if p[1] > p[0] { 1 } else { 0 }).sum();
+    let sum: usize = input.windows(2).map(|p| (p[1] > p[0]) as usize).sum();
 
     println!("{}", sum);
 }
